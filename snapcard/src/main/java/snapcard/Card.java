@@ -45,6 +45,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return getSuit() + " of " + getSymbol();
+        return getSuit() + " " + getSymbol();
     }
 }
