@@ -32,6 +32,7 @@ public class Snap extends CardGame {
 
         System.out.println("Press enter to take your turn.");
 
+        Card card = this.dealCard();
 
         while (!haveSnap) {
 
@@ -45,16 +46,16 @@ public class Snap extends CardGame {
                 turn = 1;
             }
 
-            Card previousCard = this.dealCard();
+            Card previousCard = card;
             previousCardSymbol = previousCard.getSymbol();
 
-            Card currentCard = this.dealCard();
-            System.out.println("previous "+previousCard);
-            System.out.println("current "+currentCard);
-            currentCardSymbol = currentCard.getSymbol();
+            card = this.dealCard();
+//            System.out.println("previous "+previousCard);
+            System.out.println(card);
+            currentCardSymbol = card.getSymbol();
             snapCheck();
         }
-        System.out.println("previous "+this.dealCard());
+//        System.out.println(card);
         this.timer();
 
         if (haveSnap && haveWinner) {
