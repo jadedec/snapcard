@@ -8,9 +8,9 @@ import java.util.TimerTask;
 
 public class Snap extends CardGame {
 
-
     public Snap() {
         super();
+        this.shuffleDeck();
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -32,8 +32,8 @@ public class Snap extends CardGame {
         System.out.println("Press enter to take your turn.");
 
 
+
         while (gameOn) {
-            this.shuffleDeck();
             Card previousCard = super.dealCard();
             Card currentCard = super.dealCard();
             System.out.println(currentCard);
