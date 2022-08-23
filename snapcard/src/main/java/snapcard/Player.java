@@ -8,8 +8,7 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    private static String name;
-    private static int turn = 1;
+    private String name;
 
     public Player(String name) {
 
@@ -17,24 +16,12 @@ public class Player {
 
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public static void setTurn() {
-        if (turn == 1) {
-            turn = 2;
-        } else if (turn == 2) {
-            turn = 1;
-        }
-    }
-
-    public static int getTurn() {
-        return turn;
     }
 
     @Override

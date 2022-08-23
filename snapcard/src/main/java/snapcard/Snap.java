@@ -22,34 +22,38 @@ public class Snap extends CardGame {
     String currentCardSymbol = "";
     int turn = 1;
 
+
+
     public void game() {
 
         System.out.println("Please enter name of Player 1");
         Player one = new Player(scanner.nextLine());
+
         System.out.println("Please enter name of Player 2");
         Player two = new Player(scanner.nextLine());
 
         System.out.println("Press enter to take your turn.");
 
-
+        Card card = this.dealCard();
+        System.out.println(card);
 
         while (gameOn) {
-            Card previousCard = super.dealCard();
-            Card currentCard = super.dealCard();
-            System.out.println(currentCard);
-            previousCardSymbol = previousCard.getSymbol();
-            currentCardSymbol = currentCard.getSymbol();
+            String playerInput = scanner.nextLine();
+            if (playerInput.equals("")) {
+                if (turn == 1) {
+                    System.out.println(one.getName() + " 's turn");
+                    turn = 2;
 
-            if (turn == 1) {
-                System.out.println(one.getName() + " 's turn");
-                one.setTurn();
-            } else {
-                System.out.println(two.getName() + " 's turn");
-                two.setTurn();
-            }
-
-            snapInput = scanner.nextLine();
-            this.timer();
+                } else {
+                    System.out.println(two.getName() + " 's turn");
+                    turn = 1;
+                }
+                Card previousCard = card;
+                Card currentCard = this.dealCard();
+                System.out.println(currentCard);
+                previousCardSymbol = previousCard.getSymbol();
+                currentCardSymbol = currentCard.getSymbol();
+                this.timer();
 
             if (haveSnap && haveWinner) {
                 if (turn == 1) {
@@ -62,7 +66,7 @@ public class Snap extends CardGame {
                     break;
                 }
             }
-
+            }
         }
     }
 
@@ -75,6 +79,7 @@ public class Snap extends CardGame {
                 System.out.println("you didn't input anything in 2 seconds");
                 System.out.println("you missed");
                 System.out.println("-----------");
+                gameOn=false;
             }
         }
     };
