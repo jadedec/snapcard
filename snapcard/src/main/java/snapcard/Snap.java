@@ -14,14 +14,12 @@ public class Snap extends CardGame {
     }
 
     Scanner scanner = new Scanner(System.in);
-    boolean gameOn = true;
     boolean haveWinner = false;
     boolean haveSnap = false;
     String snapInput = "";
     String previousCardSymbol = "";
     String currentCardSymbol = "";
     int turn = 1;
-
 
 
     public void game() {
@@ -34,38 +32,36 @@ public class Snap extends CardGame {
 
         System.out.println("Press enter to take your turn.");
 
-        Card card = this.dealCard();
-        System.out.println(card);
 
-        while (gameOn) {
-            String playerInput = scanner.nextLine();
-            if (playerInput.equals("")) {
-                if (turn == 1) {
-                    System.out.println(one.getName() + " 's turn");
-                    turn = 2;
+        while (!haveSnap) {
 
-                } else {
-                    System.out.println(two.getName() + " 's turn");
-                    turn = 1;
-                }
-                Card previousCard = card;
-                Card currentCard = this.dealCard();
-                System.out.println(currentCard);
-                previousCardSymbol = previousCard.getSymbol();
-                currentCardSymbol = currentCard.getSymbol();
-                this.timer();
+            scanner.nextLine();
+            if (turn == 1) {
+                System.out.println(one.getName() + " 's turn");
+                turn = 2;
 
-            if (haveSnap && haveWinner) {
-                if (turn == 1) {
-                    System.out.println(one.getName() + " is the winner");
-                    gameOn = false;
-                    break;
-                } else {
-                    System.out.println(two.getName() + " is the winner");
-                    gameOn = false;
-                    break;
-                }
+            } else {
+                System.out.println(two.getName() + " 's turn");
+                turn = 1;
             }
+
+            Card previousCard = this.dealCard();
+            previousCardSymbol = previousCard.getSymbol();
+
+            Card currentCard = this.dealCard();
+            System.out.println("previous "+previousCard);
+            System.out.println("current "+currentCard);
+            currentCardSymbol = currentCard.getSymbol();
+            snapCheck();
+        }
+        System.out.println("previous "+this.dealCard());
+        this.timer();
+
+        if (haveSnap && haveWinner) {
+            if (turn == 1) {
+                System.out.println(one.getName() + " is the winner");
+            } else {
+                System.out.println(two.getName() + " is the winner");
             }
         }
     }
@@ -79,7 +75,7 @@ public class Snap extends CardGame {
                 System.out.println("you didn't input anything in 2 seconds");
                 System.out.println("you missed");
                 System.out.println("-----------");
-                gameOn=false;
+                System.exit(0);
             }
         }
     };
@@ -91,7 +87,6 @@ public class Snap extends CardGame {
         // cancel method to cancel the execution
         timer.cancel();
         this.winnerCheck();
-        this.snapCheck();
     }
 
     public void winnerCheck() {
